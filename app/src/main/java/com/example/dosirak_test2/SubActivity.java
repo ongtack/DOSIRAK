@@ -51,10 +51,8 @@ public class SubActivity extends AppCompatActivity {
         String storeName = intent.getStringExtra("storeName");  //처음 화면에서 가져온 - 한성대점
         tv_storename = findViewById(R.id.store_name);
         tv_storename.setText(storeName);
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        ///////////////여기서부터가 문제
-        //리사이클러뷰 접근////////////////////////////
+        //리사이클러뷰 접근
         recyclerView =(RecyclerView) findViewById(R.id.rv);
         linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -80,28 +78,6 @@ public class SubActivity extends AppCompatActivity {
             JSONArray jsonArrayStock = new JSONArray(find_stock); /////////////////////stock 저장 완료 ->jsonArray에 stock 저장
             JSONArray jsonArrayProduct = new JSONArray(find_product); /////////////////////Product 저장 완료 ->jsonArray에 Product 저장
 
-
- /*       //처음에 기본적으로 보여주는 모습
-            for (int i = 0; i < jsonArrayStock.length(); i++) {
-                if (jsonArrayStock.getJSONObject(i).getString("store_name").equals(storeName)) {
-                    /////여기서부터
-                    for(int j = 0 ; j<jsonArrayProduct.length();j++) {
-                        JSONObject jsonObject1 = jsonArrayProduct.getJSONObject(j);
-                        JSONObject jsonObject2= jsonArrayStock.getJSONObject(i);
-                        //변수 선언
-                        String productName = jsonObject1.getString("product_name");
-                        String tv_type = jsonObject1.getString("category");
-                        String tv_price = jsonObject1.getString("price");
-                        String barcode = jsonObject1.getString("barcode");
-
-                        String tv_stock = jsonObject2.getString("count");
-                        if(jsonArrayStock.getJSONObject(i).getString("barcode").equals(jsonArrayProduct.getJSONObject(j).getString("barcode"))){
-                            MainData mainData = new MainData(productName, tv_type,tv_price,tv_stock, barcode);
-                            arrayList.add(mainData);
-                        }
-                    }
-                }
-            }*/
 
             for (int i = 0; i < jsonArrayProduct.length(); i++) {
                 JSONObject jsonObject1 = jsonArrayProduct.getJSONObject(i);
@@ -145,14 +121,17 @@ public class SubActivity extends AppCompatActivity {
                                     String barcode = jsonObject1.getString("barcode");
 
                                     if (productName.contains(et_find.getText())) {
+                                        MainData mainData = new MainData(productName, tv_type, tv_price, "0", barcode);
+
                                         for (int j = 0; j < jsonArrayStock.length(); j++) {
                                             if (jsonArrayStock.getJSONObject(j).getString("barcode").equals(jsonArrayProduct.getJSONObject(i).getString("barcode"))
                                                     && jsonArrayStock.getJSONObject(j).getString("store_name").equals(storeName)) {
                                                 //productName = productName + " : " + jsonArrayStock.getJSONObject(i).getString("count");
-                                                MainData mainData = new MainData(productName, tv_type,tv_price,tv_stock, barcode);
-                                                arrayList.add(mainData);
+                                                mainData.setTv_stock(tv_stock);
                                             }
                                         }
+
+                                        arrayList.add(mainData);
                                     }
                                     mainAdapter.notifyDataSetChanged();
 
@@ -166,7 +145,7 @@ public class SubActivity extends AppCompatActivity {
                     return false;
                 }
             });
-///////////////////////////////나는 여기만 일단 신경쓰자////////////////////////////////////////////
+
             btn_find.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -187,20 +166,20 @@ public class SubActivity extends AppCompatActivity {
                                 String barcode = jsonObject.getString("barcode");
 
                                 if (productName.contains(et_find.getText())) {
+                                    MainData mainData = new MainData(productName, tv_type, tv_price, "0", barcode);
+
                                     for (int j = 0; j < jsonArrayStock.length(); j++) {
                                         if (jsonArrayStock.getJSONObject(j).getString("barcode").equals(jsonArrayProduct.getJSONObject(i).getString("barcode"))
                                                 && jsonArrayStock.getJSONObject(j).getString("store_name").equals(storeName)) {
-                                            //////////////여기에 텍스트뷰 여러개를 추가///////////
                                             //productName = productName + " : " + jsonArrayStock.getJSONObject(i).getString("count");
-                                            //////여기다가 변수 선언 후에 값 넣기
-                                            MainData mainData = new MainData(productName, tv_type,tv_price,tv_stock,barcode);
-                                            arrayList.add(mainData);
-                                            //mainAdapter.notifyDataSetChanged();
+                                            mainData.setTv_stock(tv_stock);
                                         }
                                     }
+
+                                    arrayList.add(mainData);
                                 }
                                 mainAdapter.notifyDataSetChanged();
-                                //adapter.notifyDataSetChanged(); ///////////아 이걸 해줬어야 한다..
+
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }

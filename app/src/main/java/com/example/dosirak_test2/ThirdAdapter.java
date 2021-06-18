@@ -55,10 +55,10 @@ public class ThirdAdapter extends RecyclerView.Adapter<ThirdAdapter.CustomViewHo
                     });
                     builder.show();*/
 
-                    //이번엔 지도 만들기
+                    //지도 만들기
                     Intent intentMove = new Intent(mContext, goolglemap.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    // 매장의 위치좌표 넘기기
-                    intentMove.putExtra("storeWhere", arrayList.get(position).getWhere()); //여기에 어떤 부분을 넣어야 할까?
+                    //매장의 위치좌표 넘기기
+                    intentMove.putExtra("storeWhere", arrayList.get(position).getWhere());
                     intentMove.putExtra("storeName", arrayList.get(position).getTv_name());
                     intentMove.putExtra("storeStock", arrayList.get(position).getTv_stock());
 

@@ -52,9 +52,7 @@ public class ThirdActivity extends AppCompatActivity {
         third_tv_price.setText(price);
 
         //final LinearLayout linearLayout = findViewById(R.id.third_linearLayout);
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        ///////////////여기서부터가 문제
         //리사이클러뷰 접근////////////////////////////
         recyclerView = (RecyclerView) findViewById(R.id.third_linearLayout);
         linearLayoutManager = new LinearLayoutManager(this);
@@ -78,21 +76,17 @@ public class ThirdActivity extends AppCompatActivity {
             String find_product = jsonObject.getString("product");
             String where = jsonObject.getString("store");
 
-            JSONArray jsonArrayStock = new JSONArray(find_stock); /////////////////////stock 저장 완료 ->jsonArray에 stock 저장
-            JSONArray jsonArrayProduct = new JSONArray(find_product); /////////////////////Product 저장 완료 ->jsonArray에 Product 저장
+            JSONArray jsonArrayStock = new JSONArray(find_stock); ///stock 저장 완료 후 ->jsonArray에 stock 저장
+            JSONArray jsonArrayProduct = new JSONArray(find_product); ///Product 저장 완료 후 ->jsonArray에 Product 저장
             JSONArray jsonArrayStore = new JSONArray(where);
 
-            //String barcode = jsonObject1.getString("barcode");
-            //String store_name =
+
             String store_where = null;
             for(int i=0; i<jsonArrayStock.length(); i++){
                 if (barcode.equals(jsonArrayStock.getJSONObject(i).getString("barcode"))){
-                    /////여기서부터
+
                     //for(int j=0; j<jsonArrayStock.length(); j++){
                         JSONObject jsonObject2= jsonArrayStock.getJSONObject(i);
-                        //
-
-
                         //변수 선언
                         String store_name = jsonObject2.getString("store_name");
                         String store_stock=jsonObject2.getString("count");
@@ -109,10 +103,6 @@ public class ThirdActivity extends AppCompatActivity {
                         arrayList.add(thirdData);
                    // }
 
-                    //ThirdData thirdData= new ThirdData(jsonArrayStock.getJSONObject((i)).getString("store_name"),)
-                   /* TextView textView = new TextView(ThirdActivity.this);
-                    textView.setText(jsonArrayStock.getJSONObject((i)).getString("store_name"));
-                    linearLayout.addView(textView);*/
                 }
             }
             thirdAdapter.notifyDataSetChanged();

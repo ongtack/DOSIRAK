@@ -34,7 +34,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Button data = (Button)findViewById(R.id.sendData);
+        //Button data = (Button)findViewById(R.id.sendD ata);
         final TextView textView = (TextView)findViewById(R.id.textView);
         final LinearLayout linearLayout = findViewById(R.id.linearhoho);
 
